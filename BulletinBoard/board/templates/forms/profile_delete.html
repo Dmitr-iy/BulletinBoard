@@ -1,0 +1,18 @@
+{% extends 'default.html' %}
+{% block title %}
+<title>Delete profile</title>
+{% endblock title %}
+{% block content %}
+    <h2 style="margin-left:auto;margin-right:auto;">Are you sure you want to delete your profile?</h2>
+    <h2 style="margin-left:auto;margin-right:auto;">Profile will be deleted!</h2>
+    <div class = "container" style="text-align:center;">
+        <p>Username: {{user.username|default:"No data"}}</p>
+        <p>Имя: {{user.first_name|default:"No data"}}</p>
+        <p>Фамилия: {{user.last_name|default:"No data"}}</p>
+        <p>Почта: {{user.email|default:"No data"}}</p>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Confirm">
+    </form>
+{% endblock content %}

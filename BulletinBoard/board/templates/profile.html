@@ -1,0 +1,16 @@
+{% extends 'default.html' %}
+{% block title %}
+    <title>Profile</title>
+{% endblock title %}
+{% block content %}
+    <div class = "container" style="text-align:center;">
+        <p>Username: {{user.username|default:"No data"}}</p>
+        <p>Name: {{user.first_name|default:"No data"}}</p>
+        <p>Last name: {{user.last_name|default:"No data"}}</p>
+        <p>mail: {{user.email|default:"No data"}}</p>
+    </div>
+    <p style="text-align:center;">
+        <a href="{% url 'profile_edit' user.id %}"><u style="font-size:10px">[Update]</u></a>
+        <a href="{% url 'profile_delete' user.id %}"><u style="font-size:10px">[Delete]</u></a>
+    </p>
+{% endblock content %}

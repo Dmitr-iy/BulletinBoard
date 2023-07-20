@@ -1,0 +1,40 @@
+{% extends 'default.html' %}
+{% block title %}
+    <title>Home</title>
+{% endblock title %}
+{% block content %}
+    {% for post in posts %}
+    <div class="container">
+        <div style="text-align:center;">
+            <h2 style="color: #4c5e1b">{{ post.title }}</h2>
+            <h3 class="lead" style="color: #012787">{{ post.author }}</h3>
+            <h4 class="lead">Categories:
+                {% for category in post.categories.all %}
+                    <a href="{% url 'category' category.id %}" style="font-size:0.9em; color:red"><li class="list-inline-item">{{category}}</li></a>
+                {% endfor %}
+            </h4>
+            <p class="lead">{{ post.time_create|date:'j F Y' }} <a href="{% url 'post' post.id %}" style="color: #1b1233">Read</a></p>
+            <hr>
+        </div>
+    </div>
+    {% endfor %}
+    {% if is_paginated %}
+    <div style="text-align:center;">
+    {% if page_obj.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ page_obj.previous_page_number}}">&#8920</a>
+    {% endif %}
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a>{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">&#8921</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+    </div>
+{% endif %}
+{% endblock content %}
